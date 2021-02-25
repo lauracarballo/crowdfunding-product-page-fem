@@ -17,8 +17,9 @@ body {
   margin: 0;
   height: 100%;
   font-family: ${primaryFont};
-  color: ${neutral[400]};
+  color: ${neutral[100]};
   font-size: ${typeScale.paragraph};
+  background-color: hsl(0deg 0% 96%);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -28,6 +29,12 @@ main {
   width: 90%;
   margin: 0 auto;
 }
+
+h1 {
+    font-size: ${typeScale.header1};
+    font-weight: 700;
+}
+
 
 ul, li {
     list-style-type: none;

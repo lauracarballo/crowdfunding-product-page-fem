@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
 import Nav from "./components/Nav";
+import Project from "./components/Project";
 import { GlobalStyle } from "./utils/Global";
 import { defaultTheme } from "./utils/themes";
 
@@ -10,6 +11,7 @@ export default function App() {
       <Hero>
         <Nav />
       </Hero>
+      <Project />
       <GlobalStyle />
     </ThemeProvider>
   );
@@ -23,7 +25,7 @@ const Hero = styled.header`
   background-repeat: no-repeat;
   background-size: contain;
   padding: 20px 140px;
-  z-index: 1;
+  z-index: 0;
 
   &:before {
     height: inherit;

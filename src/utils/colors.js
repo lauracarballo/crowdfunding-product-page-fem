@@ -6,4 +6,5 @@ export const primary = {
 export const neutral = {
   100: "hsl(0, 0%, 0%)",
   200: "hsl(0, 0%, 48%)",
+  300: "hsl(0deg 0% 96%)",
 };
