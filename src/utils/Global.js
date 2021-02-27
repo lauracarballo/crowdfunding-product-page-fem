@@ -35,6 +35,11 @@ h1 {
     font-weight: 700;
 }
 
+h2 {
+    font-size: ${typeScale.header2};
+    font-weight: 700;
+}
+
 
 ul, li {
     list-style-type: none;
