@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { typeScale, primary } from "../utils";
 import { PrimaryButton } from "./Buttons";
 
 export default function ProductBox({ name, price, description, units }) {
@@ -6,12 +7,15 @@ export default function ProductBox({ name, price, description, units }) {
     <Container>
       <Row>
         <h3>{name}</h3>
-        <span>{price}</span>
+        <Price>{price}</Price>
       </Row>
       <p>{description}</p>
       <Row>
-        <span>{units} left</span>
-        <PrimaryButton>Select Reward</PrimaryButton>
+        <div>
+          <Units>{units}</Units>
+          <span>left</span>
+        </div>
+        <PrimaryButton modifiers="small">Select Reward</PrimaryButton>
       </Row>
     </Container>
   );
@@ -32,4 +36,15 @@ const Row = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+`;
+
+const Price = styled.span`
+  color: ${primary[100]};
+  font-size: ${typeScale.copyrightText};
+`;
+
+const Units = styled.span`
+  font-size: 30px;
+  font-weight: 700;
+  margin-right: 10px;
 `;

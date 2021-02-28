@@ -1,5 +1,13 @@
 import styled from "styled-components";
 import { typeScale } from "../utils";
+import { applyStyleModifiers } from "styled-components-modifiers";
+
+const BUTTON_MODIFIERS = {
+  small: () => `
+    font-size: ${typeScale.copyrightText};
+    padding: 15px 25px;
+  `,
+};
 
 const Button = styled.button`
   padding: 20px 35px;
@@ -33,11 +41,13 @@ export const PrimaryButton = styled(Button)`
   background-color: ${(props) => props.theme.primaryButton};
   color: ${(props) => props.theme.textColorOnPrimary};
   border: none;
+  ${applyStyleModifiers(BUTTON_MODIFIERS)}
 `;
 
 export const SecondaryButton = styled(Button)`
   position: relative;
   background-color: ${(props) => props.theme.secondaryButton};
+  color: ${(props) => props.theme.textColorOnSecondary};
   padding: 20px 25px 20px 70px;
   border: none;
   color: ${(props) => props.theme.primaryColor};

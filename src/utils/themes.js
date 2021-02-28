@@ -9,6 +9,7 @@ export const defaultTheme = {
   secondaryHoverColor: `${neutral[300]}`,
   primaryActiveColor: `${primary[200]}`,
   textColorOnPrimary: `#fff`,
+  textColorOnSecondary: `${neutral[200]}`,
   backgroundDarkGradient: linearGradient({
     colorStops: [`#000 10%`, `#fff`],
     toDirection: "to bottom",

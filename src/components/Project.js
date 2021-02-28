@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Intro from "./ProjectIntro";
 import Info from "./ProjectInfo";
+import Counter from "./Counter";
 
 export default function Project() {
   return (
@@ -9,6 +10,7 @@ export default function Project() {
         title="Mastercraft Bamboo Monitor Riser"
         subtitle="A beautiful & handcrafted monitor stand to reduce neck and eye strain."
       />
+      <Counter moneyRaised="$89,914" totalBackers="$5,007" days="56" />
       <Info>
         <p>
           The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform
