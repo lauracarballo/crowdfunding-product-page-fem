@@ -31,30 +31,30 @@ main {
 }
 
 h1 {
-    font-size: ${typeScale.header1};
-    font-weight: 700;
+  font-size: ${typeScale.header1};
+  font-weight: 700;
 }
 
 h2 {
-    font-size: ${typeScale.header2};
-    font-weight: 700;
+  font-size: ${typeScale.header2};
+  font-weight: 700;
 }
 
 
 ul, li {
-    list-style-type: none;
+  list-style-type: none;
 }
 
 a:link {
-    text-decoration: inherit;
-    color: inherit;
-    cursor: pointer;
+  text-decoration: inherit;
+  color: inherit;
+  cursor: pointer;
 }
 
 a:visited {
-    text-decoration: inherit;
-    color: inherit;
-    cursor: auto;
+  text-decoration: inherit;
+  color: inherit;
+  cursor: auto;
 }
 
 `;

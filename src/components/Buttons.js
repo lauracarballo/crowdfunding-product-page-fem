@@ -7,10 +7,6 @@ const BUTTON_MODIFIERS = {
     font-size: ${typeScale.copyrightText};
     padding: 15px 25px;
   `,
-  disabled: (props) => `
-    background: ${props.theme.textColorOnSecondary};
-    color: ${props.theme.textColorOnPrimary};
-  `,
 };
 
 const Button = styled.button`
@@ -42,7 +38,7 @@ const Button = styled.button`
 
   &:disabled {
     cursor: not-allowed;
-    background: ${(props) => props.theme.secondaryButton};
+    background: ${(props) => props.theme.textColorOnSecondary};
     color: ${(props) => props.theme.textColorOnPrimary};
     border: none;
   }

@@ -21,13 +21,9 @@ export default function ProductBox({
           <Units>{units}</Units>
           <span>left</span>
         </div>
-        {disabled ? (
-          <PrimaryButton modifiers={["small", "disabled"]}>
-            Out of Stock
-          </PrimaryButton>
-        ) : (
-          <PrimaryButton modifiers="small">Select Reward</PrimaryButton>
-        )}
+        <PrimaryButton modifiers="small" disabled={disabled}>
+          {disabled ? "Out of Stock" : "Select Reward"}
+        </PrimaryButton>
       </Row>
     </Container>
   );
@@ -45,16 +41,13 @@ const Container = styled.div`
 
   &:before {
     position: absolute;
-    content: "";
+    content: ${(props) => (props.disabled ? '""' : "none")};
     width: 100%;
     height: 100%;
-    border: ${(props) =>
-      props.disabled
-        ? "1px solid hsl(0deg 6% 92% / 40%)"
-        : "1px solid hsl(0deg 0% 85%)"};
+    border-radius: 10px;
     top: 0px;
     left: 0px;
-    background-color: ${(props) => (props.disabled ? "#ffffff99" : "none")};
+    background-color: #ffffff99;
   }
 `;
 

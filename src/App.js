@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
+import Modal from "./components/Modal";
 import Nav from "./components/Nav";
 import Project from "./components/Project";
 import { GlobalStyle } from "./utils/Global";
@@ -12,6 +13,7 @@ export default function App() {
         <Nav />
       </Hero>
       <Project />
+      <Modal></Modal>
       <GlobalStyle />
     </ThemeProvider>
   );
