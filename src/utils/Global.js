@@ -45,6 +45,16 @@ ul, li {
     list-style-type: none;
 }
 
+a:link {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: pointer;
+}
 
+a:visited {
+    text-decoration: inherit;
+    color: inherit;
+    cursor: auto;
+}
 
 `;

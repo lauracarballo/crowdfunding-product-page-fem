@@ -7,13 +7,17 @@ const BUTTON_MODIFIERS = {
     font-size: ${typeScale.copyrightText};
     padding: 15px 25px;
   `,
+  disabled: (props) => `
+    background: ${props.theme.textColorOnSecondary};
+    color: ${props.theme.textColorOnPrimary};
+  `,
 };
 
 const Button = styled.button`
   padding: 20px 35px;
   font-size: ${typeScale.helperText};
   font-weight: 700;
-  min-width: 100px;
+  min-width: 150px;
   cursor: pointer;
   font-family: ${(props) => props.theme.primaryFont};
   transition: all 0.5s;
@@ -34,6 +38,13 @@ const Button = styled.button`
     background-color: ${(props) => props.theme.primaryActiveColor};
     border-color: ${(props) => props.theme.primaryActiveColor};
     color: ${(props) => props.theme.textColorOnPrimary};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: ${(props) => props.theme.secondaryButton};
+    color: ${(props) => props.theme.textColorOnPrimary};
+    border: none;
   }
 `;
 

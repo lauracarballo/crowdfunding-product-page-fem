@@ -21,7 +21,11 @@ export function NavLinks({ links }) {
   return (
     <NavLinkContainer>
       {links.map((link) => {
-        return <NavLink>{link}</NavLink>;
+        return (
+          <NavLink>
+            <a href="/">{link}</a>
+          </NavLink>
+        );
       })}
     </NavLinkContainer>
   );
