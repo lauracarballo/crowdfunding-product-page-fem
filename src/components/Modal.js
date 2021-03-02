@@ -2,7 +2,10 @@ import ReactDOM from "react-dom";
 import { FocusScope } from "@react-aria/focus";
 import { useState } from "react";
 import styled from "styled-components";
+import { typeScale, primary } from "../utils";
 import Radio from "./Radio";
+import { products } from "./Products";
+import { PrimaryButton } from "./Buttons";
 
 export default function Modal({ isOpen, closeModal }) {
   return isOpen
@@ -28,19 +31,17 @@ export default function Modal({ isOpen, closeModal }) {
                 name="Pledge with no reward"
                 description="Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email."
               />
-              <SelectProductBox
-                name="Bamboo Stand"
-                description="You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you’ll be added to a special Backer member list"
-              />
-              <SelectProductBox
-                name="Black Edition Stand"
-                description="You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer member list. Shipping is included."
-              />
-              <SelectProductBox
-                disabled
-                name="Mahogany Special Edition"
-                description="You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added to our Backer member list. Shipping is included."
-              />
+              {products.map((product) => {
+                return (
+                  <SelectProductBox
+                    name={product.name}
+                    description={product.description}
+                    price={product.price}
+                    units={product.units + " left"}
+                    defaultPledge={product.minPledge}
+                  />
+                );
+              })}
             </Container>
             <ModalOverlay />
           </ModalWrapper>
@@ -62,9 +63,9 @@ const Container = styled.div`
   top: -200px;
   z-index: 999;
   background-color: #fff;
-  width: 665px;
+  width: 700px;
   border-radius: 10px;
-  padding: 40px;
+  padding: 20px 40px;
 `;
 
 const ModalOverlay = styled.div`
@@ -90,6 +91,12 @@ const CloseModalButton = styled.button`
   font-weight: 700;
   font-size: 20px;
   cursor: pointer;
+
+  &:focus {
+    outline: 3px solid ${(props) => props.theme.primaryHoverColor};
+    outline-offset: 2px;
+    border: 2px solid transparent;
+  }
 `;
 
 // const useRadio = (name, ref) => {
@@ -105,7 +112,15 @@ const CloseModalButton = styled.button`
 //     return products[ref]
 // }
 
-export function SelectProductBox({ name, description, disabled }) {
+export function SelectProductBox({
+  name,
+  description,
+  disabled,
+  price,
+  units,
+  defaultPledge,
+}) {
+  const [pledge, setPledge] = useState();
   const [isSelected, setIsSelected] = useState(false);
   //   const ref = useRef();
 
@@ -113,20 +128,70 @@ export function SelectProductBox({ name, description, disabled }) {
 
   function handleChange(event) {
     setIsSelected(true);
-    console.log(event.target.name);
   }
-  return (
-    <ProductBox disabled={disabled}>
-      <label>
-        <Radio
-          //   ref={ref}
-          name="products"
-          checked={isSelected}
-          onChange={handleChange}
-          value={name}
-        />
-        <Tag>{name}</Tag>
-      </label>
+
+  function handleInputChange(event) {
+    setPledge(event.target.value);
+  }
+
+  return isSelected ? (
+    <ProductBox isSelected={isSelected} disabled={disabled}>
+      <Label>
+        <div>
+          <Radio
+            //   ref={ref}
+            name="products"
+            checked={isSelected}
+            onChange={handleChange}
+            value={name}
+          />
+          <Tag>{name}</Tag>
+
+          <Price>{price}</Price>
+        </div>
+        <div>
+          <Units>{units}</Units>
+        </div>
+      </Label>
+      <p>{description}</p>
+      <hr />
+      <Row>
+        <span>Enter your pledge</span>
+        <Row>
+          <InputWrapper>
+            <label htmlFor="pledge">$</label>
+            <Input
+              type="text"
+              id="pledge"
+              name="pledge"
+              onChange={handleInputChange}
+              value={pledge}
+              placeholder={defaultPledge}
+            />
+          </InputWrapper>
+          <PrimaryButton modifiers="small">Continue</PrimaryButton>
+        </Row>
+      </Row>
+    </ProductBox>
+  ) : (
+    <ProductBox isSelected={isSelected} disabled={disabled}>
+      <Label>
+        <div>
+          <Radio
+            //   ref={ref}
+            name="products"
+            checked={isSelected}
+            onChange={handleChange}
+            value={name}
+          />
+          <Tag>{name}</Tag>
+
+          <Price>{price}</Price>
+        </div>
+        <div>
+          <Units>{units}</Units>
+        </div>
+      </Label>
       <p>{description}</p>
     </ProductBox>
   );
@@ -136,11 +201,18 @@ const ProductBox = styled.div`
   position: relative;
   margin: 20px 0px;
   background-color: #fff;
-  border: 1px solid hsl(0deg 6% 92% / 85%);
+  border: ${(props) =>
+    props.isSelected
+      ? `2px solid ${primary[100]}`
+      : "1px solid hsl(0deg 6% 92% / 85%)"};
   border-radius: 10px;
   box-shadow: 15px 15px 65px #fff;
   text-align: left;
   padding: 20px;
+
+  p:only-of-type {
+    padding-left: 40px;
+  }
 
   &:before {
     position: absolute;
@@ -154,7 +226,54 @@ const ProductBox = styled.div`
   }
 `;
 
+const Row = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Label = styled.label`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+`;
+
 const Tag = styled.span`
   margin-left: 20px;
   font-weight: 700;
+`;
+
+const Price = styled.span`
+  color: ${primary[100]};
+  font-size: ${typeScale.copyrightText};
+  margin: 0 20px;
+`;
+
+const Units = styled.span`
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 10px;
+`;
+
+const Input = styled.input`
+  width: 40px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  margin: 0px 10px;
+
+  &:focus {
+    outline: 3px solid ${(props) => props.theme.primaryHoverColor};
+    outline-offset: 2px;
+    border: 2px solid transparent;
+  }
+`;
+
+const InputWrapper = styled.div`
+  border: 2px solid hsl(0deg 6% 92% / 85%);
+  border-radius: 30px;
+  padding: 10px 15px;
+  margin-right: 10px;
 `;

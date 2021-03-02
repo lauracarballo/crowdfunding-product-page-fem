@@ -8,7 +8,7 @@ export default function useModal() {
       document.addEventListener(
         "keydown",
         function handleKeydown(event) {
-          if (event.keyCode === 27) {
+          if (event.key === "Escape") {
             setIsOpen(false);
           }
         },
@@ -19,7 +19,7 @@ export default function useModal() {
       document.removeEventListener(
         "keydown",
         function handleKeydown(event) {
-          if (event.keyCode === 27) {
+          if (event.key === "Escape") {
             setIsOpen(false);
           }
         },

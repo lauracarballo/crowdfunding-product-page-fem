@@ -21,7 +21,7 @@ export default function ProductBox({
           <Units>{units}</Units>
           <span>left</span>
         </div>
-        <PrimaryButton modifiers="small" disabled={disabled}>
+        <PrimaryButton disabled={disabled}>
           {disabled ? "Out of Stock" : "Select Reward"}
         </PrimaryButton>
       </Row>

@@ -6,7 +6,7 @@ export const defaultTheme = {
   primaryButton: `${primary[100]}`,
   secondaryButton: `${neutral[300]}`,
   primaryHoverColor: `${primary[200]}`,
-  secondaryHoverColor: `${neutral[300]}`,
+  secondaryHoverColor: `${neutral[100]}`,
   primaryActiveColor: `${primary[200]}`,
   textColorOnPrimary: `#fff`,
   textColorOnSecondary: `${neutral[200]}`,

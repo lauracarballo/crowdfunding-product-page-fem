@@ -5,12 +5,16 @@ import { applyStyleModifiers } from "styled-components-modifiers";
 const BUTTON_MODIFIERS = {
   small: () => `
     font-size: ${typeScale.copyrightText};
-    padding: 15px 25px;
+    padding: 15px 20px;
+    min-width: 100px;
+  `,
+  large: () => `
+    padding: 20px 35px;
   `,
 };
 
 const Button = styled.button`
-  padding: 20px 35px;
+  padding: 15px 25px;
   font-size: ${typeScale.helperText};
   font-weight: 700;
   min-width: 150px;
@@ -68,6 +72,10 @@ export const SecondaryButton = styled(Button)`
     content: "";
     height: 56px;
     width: 56px;
+  }
+
+  &:focus {
+    outline: 3px solid ${(props) => props.theme.secondaryHoverColor};
   }
 `;
 
