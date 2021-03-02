@@ -1,53 +1,95 @@
+import ReactDOM from "react-dom";
+import { FocusScope } from "@react-aria/focus";
 import { useState } from "react";
 import styled from "styled-components";
 import Radio from "./Radio";
 
-export default function Modal() {
-  return (
-    <ModalWrapper>
-      <Container>
-        <h3>Back this project</h3>
-        <p>
-          Want to support us in bringing MasterCraft Bamboo Monitor Riser out in
-          the world?
-        </p>
-        <SelectProductBox
-          name="Pledge with no reward"
-          description="Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email."
-        />
-        <SelectProductBox
-          name="Bamboo Stand"
-          description="You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you’ll be added to a special Backer member list"
-        />
-        <SelectProductBox
-          name="Black Edition Stand"
-          description="You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer member list. Shipping is included."
-        />
-        <SelectProductBox
-          disabled
-          name="Mahogany Special Edition"
-          description="You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added to our Backer member list. Shipping is included."
-        />
-      </Container>
-    </ModalWrapper>
-  );
+export default function Modal({ isOpen, closeModal }) {
+  return isOpen
+    ? ReactDOM.createPortal(
+        <FocusScope contain restoreFocus autoFocus>
+          <ModalWrapper>
+            <Container
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="ProductsList"
+              aria-describedby="Choose the product you want to support"
+              tab-index={-1}
+            >
+              <CloseModalButtonWrapper>
+                <CloseModalButton onClick={closeModal}>x</CloseModalButton>
+              </CloseModalButtonWrapper>
+              <h3>Back this project</h3>
+              <p>
+                Want to support us in bringing MasterCraft Bamboo Monitor Riser
+                out in the world?
+              </p>
+              <SelectProductBox
+                name="Pledge with no reward"
+                description="Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email."
+              />
+              <SelectProductBox
+                name="Bamboo Stand"
+                description="You get an ergonomic stand made of natural bamboo. You've helped us launch our promotional campaign, and you’ll be added to a special Backer member list"
+              />
+              <SelectProductBox
+                name="Black Edition Stand"
+                description="You get a Black Special Edition computer stand and a personal thank you. You’ll be added to our Backer member list. Shipping is included."
+              />
+              <SelectProductBox
+                disabled
+                name="Mahogany Special Edition"
+                description="You get two Special Edition Mahogany stands, a Backer T-Shirt, and a personal thank you. You’ll be added to our Backer member list. Shipping is included."
+              />
+            </Container>
+            <ModalOverlay />
+          </ModalWrapper>
+        </FocusScope>,
+        document.body
+      )
+    : null;
 }
 
-const ModalWrapper = styled.div`
+const ModalWrapper = styled.aside`
   display: grid;
   place-items: center;
   width: 100%;
   margin: 0 auto;
-  position: absolute;
-  top: 160px;
-  z-index: 2;
 `;
 
 const Container = styled.div`
+  position: relative;
+  top: -200px;
+  z-index: 999;
   background-color: #fff;
   width: 665px;
   border-radius: 10px;
   padding: 40px;
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background-color: #000;
+  opacity: 0.75;
+`;
+
+const CloseModalButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const CloseModalButton = styled.button`
+  border: none;
+  background: transparent;
+  color: ${(props) => props.theme.mainFontColor};
+  font-weight: 700;
+  font-size: 20px;
+  cursor: pointer;
 `;
 
 // const useRadio = (name, ref) => {

@@ -3,17 +3,20 @@ import { ThemeProvider } from "styled-components";
 import Modal from "./components/Modal";
 import Nav from "./components/Nav";
 import Project from "./components/Project";
+import useModal from "./components/useModal";
 import { GlobalStyle } from "./utils/Global";
 import { defaultTheme } from "./utils/themes";
 
 export default function App() {
+  const { isOpen, toggle } = useModal();
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Hero>
         <Nav />
       </Hero>
-      <Project />
-      <Modal></Modal>
+      <Project openModal={toggle} />
+      <Modal isOpen={isOpen} closeModal={toggle} />
       <GlobalStyle />
     </ThemeProvider>
   );

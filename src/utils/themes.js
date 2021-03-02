@@ -16,4 +16,5 @@ export const defaultTheme = {
     fallback: "#FFF",
   }),
   primaryFont: primaryFont,
+  mainFontColor: `${neutral[200]}`,
 };

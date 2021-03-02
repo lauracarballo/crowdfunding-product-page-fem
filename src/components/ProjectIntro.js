@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { PrimaryButton, SecondaryButton } from "./Buttons";
 
-export default function Intro({ title, subtitle }) {
+export default function Intro({ title, subtitle, openModal }) {
   return (
     <Container>
       <Logo>
@@ -24,7 +24,7 @@ export default function Intro({ title, subtitle }) {
       <h1>{title}</h1>
       <p>{subtitle}</p>
       <ButtonWrapper>
-        <PrimaryButton>Back this Project</PrimaryButton>
+        <PrimaryButton onClick={openModal}>Back this Project</PrimaryButton>
         <SecondaryButton>Bookmark</SecondaryButton>
       </ButtonWrapper>
     </Container>
