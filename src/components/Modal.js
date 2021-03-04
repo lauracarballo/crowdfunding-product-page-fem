@@ -7,10 +7,10 @@ import Radio from "./Radio";
 import { products } from "./Products";
 import { PrimaryButton } from "./Buttons";
 
-export default function Modal({ isOpen, closeModal }) {
+export default function Modal({ isOpen, closeModal, openThankYou }) {
   return isOpen
     ? ReactDOM.createPortal(
-        <FocusScope contain restoreFocus autoFocus>
+        <FocusScope contain autoFocus>
           <ModalWrapper>
             <Container
               role="dialog"
@@ -34,11 +34,13 @@ export default function Modal({ isOpen, closeModal }) {
               {products.map((product) => {
                 return (
                   <SelectProductBox
+                    key={product.id}
                     name={product.name}
                     description={product.description}
                     price={product.price}
                     units={product.units + " left"}
                     defaultPledge={product.minPledge}
+                    openThankYou={openThankYou}
                   />
                 );
               })}
@@ -114,14 +116,18 @@ const CloseModalButton = styled.button`
 
 export function SelectProductBox({
   name,
+  id,
   description,
   disabled,
   price,
   units,
   defaultPledge,
+  onSelect,
+  openThankYou,
 }) {
   const [pledge, setPledge] = useState();
   const [isSelected, setIsSelected] = useState(false);
+
   //   const ref = useRef();
 
   //   const {isChecked, onChange} = useRadio("products", ref);
@@ -142,8 +148,8 @@ export function SelectProductBox({
             //   ref={ref}
             name="products"
             checked={isSelected}
-            onChange={handleChange}
-            value={name}
+            onChange={onSelect}
+            value={id}
           />
           <Tag>{name}</Tag>
 
@@ -169,7 +175,9 @@ export function SelectProductBox({
               placeholder={defaultPledge}
             />
           </InputWrapper>
-          <PrimaryButton modifiers="small">Continue</PrimaryButton>
+          <PrimaryButton onClick={openThankYou} modifiers="small">
+            Continue
+          </PrimaryButton>
         </Row>
       </Row>
     </ProductBox>

@@ -8,6 +8,7 @@ export default function ProductBox({
   description,
   units,
   disabled,
+  openModal,
 }) {
   return (
     <Container disabled={disabled}>
@@ -21,7 +22,7 @@ export default function ProductBox({
           <Units>{units}</Units>
           <span>left</span>
         </div>
-        <PrimaryButton disabled={disabled}>
+        <PrimaryButton onClick={openModal} disabled={disabled}>
           {disabled ? "Out of Stock" : "Select Reward"}
         </PrimaryButton>
       </Row>

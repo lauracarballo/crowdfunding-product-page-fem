@@ -20,9 +20,9 @@ export default function Nav() {
 export function NavLinks({ links }) {
   return (
     <NavLinkContainer>
-      {links.map((link) => {
+      {links.map((link, index) => {
         return (
-          <NavLink>
+          <NavLink key={index}>
             <a href="/">{link}</a>
           </NavLink>
         );

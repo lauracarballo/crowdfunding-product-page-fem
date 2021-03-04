@@ -31,5 +31,5 @@ export default function useModal() {
   function toggle() {
     setIsOpen(!isOpen);
   }
-  return { isOpen, toggle };
+  return { isOpen, setIsOpen, toggle };
 }

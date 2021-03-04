@@ -1,7 +1,9 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { PrimaryButton, SecondaryButton } from "./Buttons";
 
 export default function Intro({ title, subtitle, openModal }) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
   return (
     <Container>
       <Logo>
@@ -24,8 +26,32 @@ export default function Intro({ title, subtitle, openModal }) {
       <h1>{title}</h1>
       <p>{subtitle}</p>
       <ButtonWrapper>
-        <PrimaryButton onClick={openModal}>Back this Project</PrimaryButton>
-        <SecondaryButton>Bookmark</SecondaryButton>
+        <PrimaryButton modifiers="large" onClick={openModal}>
+          Back this Project
+        </PrimaryButton>
+        <SecondaryButton onClick={() => setIsBookmarked(!isBookmarked)}>
+          {isBookmarked ? (
+            <Row>
+              <svg width="65" height="56" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" fill-rule="evenodd">
+                  <circle fill="hsl(176, 50%, 47%)" cx="28" cy="28" r="28" />
+                  <path fill="#fff" d="M23 19v18l5-5.058L33 37V19z" />
+                </g>
+              </svg>
+              <div>Bookmarked</div>
+            </Row>
+          ) : (
+            <Row>
+              <svg width="65" height="56" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" fill-rule="evenodd">
+                  <circle fill="#2F2F2F" cx="28" cy="28" r="28" />
+                  <path fill="#B1B1B1" d="M23 19v18l5-5.058L33 37V19z" />
+                </g>
+              </svg>
+              <span>Bookmark</span>
+            </Row>
+          )}
+        </SecondaryButton>
       </ButtonWrapper>
     </Container>
   );
@@ -40,6 +66,11 @@ const Container = styled.div`
   box-shadow: 15px 15px 65px #fff;
   text-align: center;
   padding: 44px;
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Logo = styled.div`

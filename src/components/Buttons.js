@@ -56,27 +56,11 @@ export const PrimaryButton = styled(Button)`
 `;
 
 export const SecondaryButton = styled(Button)`
-  position: relative;
   background-color: ${(props) => props.theme.secondaryButton};
   color: ${(props) => props.theme.textColorOnSecondary};
-  padding: 20px 25px 20px 70px;
+  padding: 0px 20px 0px 0px;
   border: none;
   color: ${(props) => props.theme.primaryColor};
-
-  &:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url("images/icon-bookmark.svg");
-    background-repeat: no-repeat;
-    content: "";
-    height: 56px;
-    width: 56px;
-  }
-
-  &:focus {
-    outline: 3px solid ${(props) => props.theme.secondaryHoverColor};
-  }
 `;
 
 export const TertiaryButton = styled(Button)`
