@@ -38,7 +38,7 @@ export default function Intro({ title, subtitle, openModal }) {
                   <path fill="#fff" d="M23 19v18l5-5.058L33 37V19z" />
                 </g>
               </svg>
-              <div>Bookmarked</div>
+              <Bookmark>Bookmarked</Bookmark>
             </Row>
           ) : (
             <Row>
@@ -71,6 +71,10 @@ const Container = styled.div`
 const Row = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const Bookmark = styled.div`
+  color: ${(props) => props.theme.primaryHoverColor};
 `;
 
 const Logo = styled.div`

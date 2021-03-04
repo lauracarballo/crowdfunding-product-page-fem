@@ -61,10 +61,9 @@ export const SecondaryButton = styled(Button)`
   padding: 0px 20px 0px 0px;
   border: none;
   color: ${(props) => props.theme.primaryColor};
-`;
 
-export const TertiaryButton = styled(Button)`
-  background: none;
-  border: 2px solid transparent;
-  color: ${(props) => props.theme.primaryColor};
+  &:hover {
+    background-color: inherit;
+    color: inherit;
+  }
 `;

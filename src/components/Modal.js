@@ -10,8 +10,8 @@ import { PrimaryButton } from "./Buttons";
 export default function Modal({ isOpen, closeModal, openThankYou }) {
   return isOpen
     ? ReactDOM.createPortal(
-        <FocusScope contain autoFocus>
-          <ModalWrapper>
+        <aside>
+          <FocusScope contain autoFocus>
             <Container
               role="dialog"
               aria-modal="true"
@@ -20,9 +20,22 @@ export default function Modal({ isOpen, closeModal, openThankYou }) {
               tab-index={-1}
             >
               <CloseModalButtonWrapper>
-                <CloseModalButton onClick={closeModal}>x</CloseModalButton>
+                <CloseModalButton onClick={closeModal}>
+                  <svg
+                    width="15"
+                    height="15"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M11.314 0l2.828 2.828L9.9 7.071l4.243 4.243-2.828 2.828L7.07 9.9l-4.243 4.243L0 11.314 4.242 7.07 0 2.828 2.828 0l4.243 4.242L11.314 0z"
+                      fill="#000"
+                      fill-rule="evenodd"
+                      opacity=".4"
+                    />
+                  </svg>
+                </CloseModalButton>
               </CloseModalButtonWrapper>
-              <h3>Back this project</h3>
+              <h2>Back this project</h2>
               <p>
                 Want to support us in bringing MasterCraft Bamboo Monitor Riser
                 out in the world?
@@ -46,28 +59,25 @@ export default function Modal({ isOpen, closeModal, openThankYou }) {
               })}
             </Container>
             <ModalOverlay />
-          </ModalWrapper>
-        </FocusScope>,
+          </FocusScope>
+        </aside>,
         document.body
       )
     : null;
 }
 
-const ModalWrapper = styled.aside`
-  display: grid;
-  place-items: center;
-  width: 100%;
-  margin: 0 auto;
-`;
-
 const Container = styled.div`
-  position: relative;
-  top: -200px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 999;
   background-color: #fff;
   width: 700px;
   border-radius: 10px;
   padding: 20px 40px;
+  overflow: scroll;
+  height: 90%;
 `;
 
 const ModalOverlay = styled.div`
@@ -78,7 +88,7 @@ const ModalOverlay = styled.div`
   height: 100%;
   z-index: 99;
   background-color: #000;
-  opacity: 0.75;
+  opacity: 0.55;
 `;
 
 const CloseModalButtonWrapper = styled.div`
@@ -251,6 +261,11 @@ const Label = styled.label`
 const Tag = styled.span`
   margin-left: 20px;
   font-weight: 700;
+
+  &:hover {
+    color: ${primary[100]};
+    cursor: pointer;
+  }
 `;
 
 const Price = styled.span`
