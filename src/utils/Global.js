@@ -33,11 +33,17 @@ main {
 h1 {
   font-size: ${typeScale.header1};
   font-weight: 700;
+  @media only screen and (max-width: 768px) {
+    font-size: ${typeScale.header2};
+  }
 }
 
 h2 {
   font-size: ${typeScale.header2};
   font-weight: 700;
+  @media only screen and (max-width: 768px) {
+    font-size: ${typeScale.header3};
+  }
 }
 
 

@@ -7,7 +7,7 @@ export default function ThankYouModal({ isCompleted, closeThankYouModal }) {
   return isCompleted
     ? ReactDOM.createPortal(
         <FocusScope contain autoFocus>
-          <ModalWrapper>
+          <aside>
             <Container
               role="dialog"
               aria-modal="true"
@@ -36,31 +36,28 @@ export default function ThankYouModal({ isCompleted, closeThankYouModal }) {
               </PrimaryButton>
             </Container>
             <ModalOverlay />
-          </ModalWrapper>
+          </aside>
         </FocusScope>,
         document.body
       )
     : null;
 }
 
-const ModalWrapper = styled.aside`
-  display: grid;
-  place-items: center;
-  width: 100%;
-  margin: 0 auto;
-`;
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  top: -150px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 999;
-  background-color: #fff;
   width: 515px;
+  height: auto;
+  background-color: #fff;
   border-radius: 10px;
   padding: 20px 40px;
+  overflow: scroll;
   text-align: center;
 `;
 
@@ -72,5 +69,5 @@ const ModalOverlay = styled.div`
   height: 100%;
   z-index: 99;
   background-color: #000;
-  opacity: 0.75;
+  opacity: 0.55;
 `;

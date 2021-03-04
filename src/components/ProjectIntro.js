@@ -1,9 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { PrimaryButton, SecondaryButton } from "./Buttons";
+import useViewport from "./useViewport";
 
 export default function Intro({ title, subtitle, openModal }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const { isMobile } = useViewport();
   return (
     <Container>
       <Logo>
@@ -40,6 +42,20 @@ export default function Intro({ title, subtitle, openModal }) {
               </svg>
               <Bookmark>Bookmarked</Bookmark>
             </Row>
+          ) : isMobile && isBookmarked ? (
+            <svg width="65" height="56" xmlns="http://www.w3.org/2000/svg">
+              <g fill="none" fill-rule="evenodd">
+                <circle fill="hsl(176, 50%, 47%)" cx="28" cy="28" r="28" />
+                <path fill="#fff" d="M23 19v18l5-5.058L33 37V19z" />
+              </g>
+            </svg>
+          ) : isMobile ? (
+            <svg width="65" height="56" xmlns="http://www.w3.org/2000/svg">
+              <g fill="none" fill-rule="evenodd">
+                <circle fill="#2F2F2F" cx="28" cy="28" r="28" />
+                <path fill="#B1B1B1" d="M23 19v18l5-5.058L33 37V19z" />
+              </g>
+            </svg>
           ) : (
             <Row>
               <svg width="65" height="56" xmlns="http://www.w3.org/2000/svg">
@@ -66,6 +82,10 @@ const Container = styled.div`
   box-shadow: 15px 15px 65px #fff;
   text-align: center;
   padding: 44px;
+
+  @media only screen and (max-width: 768px) {
+    width: 380px;
+  }
 `;
 
 const Row = styled.div`
@@ -80,7 +100,7 @@ const Bookmark = styled.div`
 const Logo = styled.div`
   position: absolute;
   top: -30px;
-  left: 300px;
+  left: 45%;
 `;
 
 const ButtonWrapper = styled.div`

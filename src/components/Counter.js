@@ -39,6 +39,10 @@ const Container = styled.div`
   box-shadow: 15px 15px 65px #fff;
   text-align: left;
   padding: 44px;
+
+  @media only screen and (max-width: 768px) {
+    width: 380px;
+  }
 `;
 
 const Row = styled.div`

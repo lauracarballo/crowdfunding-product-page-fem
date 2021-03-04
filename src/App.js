@@ -60,4 +60,9 @@ const Hero = styled.header`
     background-color: #00000029;
     z-index: -1;
   }
+
+  @media only screen and (max-width: 767px) {
+    background-image: url("/images/image-hero-mobile.jpg");
+    padding: 20px 30px;
+  }
 `;
