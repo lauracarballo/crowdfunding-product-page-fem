@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function Nav() {
   const links = ["About", "Discover", "Get Started"];
-  const [open, setOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
     <>
@@ -19,8 +19,8 @@ export default function Nav() {
 
         <NavLinks links={links} />
         <MobileMenu>
-          <Burger open={open} setOpen={setOpen} />
-          <MenuBar open={open} setOpen={setOpen} />
+          <Burger isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
+          <MenuBar isNavOpen={isNavOpen} setIsNavOpen={setIsNavOpen} />
         </MobileMenu>
       </NavWrapper>
     </>

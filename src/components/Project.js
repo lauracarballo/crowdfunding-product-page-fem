@@ -22,6 +22,5 @@ const ProjectWrapper = styled.div`
   place-items: center;
   width: 100%;
   position: absolute;
-  top: 275px;
-  z-index: 1;
+  top: 225px;
 `;

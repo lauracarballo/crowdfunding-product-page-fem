@@ -8,14 +8,16 @@ import ThankYouModal from "./components/ThankYouModal";
 import useModal from "./components/useModal";
 import { GlobalStyle } from "./utils/Global";
 import { defaultTheme } from "./utils/themes";
+import useViewport from "./components/useViewport";
 
 export default function App() {
   const { isOpen, setIsOpen, toggle } = useModal();
   const [isCompleted, setIsCompleted] = useState(false);
+  const { isMobile } = useViewport();
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Hero>
+      <Hero isMobile={isMobile}>
         <Nav />
       </Hero>
       <Project openModal={toggle} />
@@ -48,18 +50,6 @@ const Hero = styled.header`
   background-repeat: no-repeat;
   background-size: contain;
   padding: 20px 140px;
-  z-index: 0;
-
-  &:before {
-    height: inherit;
-    width: 100%;
-    content: "";
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    background-color: #00000029;
-    z-index: -1;
-  }
 
   @media only screen and (max-width: 767px) {
     background-image: url("/images/image-hero-mobile.jpg");

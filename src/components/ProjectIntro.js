@@ -69,7 +69,8 @@ const Container = styled.div`
   padding: 44px;
 
   @media only screen and (max-width: 768px) {
-    width: 350px;
+    width: 310px;
+    padding: 20px;
   }
 `;
 
@@ -90,7 +91,11 @@ const Bookmark = styled.div`
 const Logo = styled.div`
   position: absolute;
   top: -30px;
-  left: 45%;
+  left: 47%;
+
+  @media only screen and (max-width: 768px) {
+    left: 41%;
+  }
 `;
 
 const ButtonWrapper = styled.div`
