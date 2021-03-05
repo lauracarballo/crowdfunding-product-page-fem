@@ -78,6 +78,11 @@ const Container = styled.div`
   padding: 20px 40px;
   overflow: scroll;
   height: 90%;
+
+  @media only screen and (max-width: 768px) {
+    width: 320px;
+    padding: 15px 20px;
+  }
 `;
 
 const ModalOverlay = styled.div`
@@ -153,27 +158,31 @@ export function SelectProductBox({
   return isSelected ? (
     <ProductBox isSelected={isSelected} disabled={disabled}>
       <Label>
-        <div>
+        <RadioWrapper>
           <Radio
             //   ref={ref}
             name="products"
             checked={isSelected}
             onChange={onSelect}
             value={id}
+            label={name}
           />
-          <Tag>{name}</Tag>
 
-          <Price>{price}</Price>
-        </div>
-        <div>
+          <PriceTag>{price}</PriceTag>
+        </RadioWrapper>
+
+        <UnitWrapper>
           <Units>{units}</Units>
-        </div>
+        </UnitWrapper>
       </Label>
       <p>{description}</p>
+      <MobileUnitWrapper>
+        <Units>{units}</Units>
+      </MobileUnitWrapper>
       <hr />
       <Row>
         <span>Enter your pledge</span>
-        <Row>
+        <InnerRow>
           <InputWrapper>
             <label htmlFor="pledge">$</label>
             <Input
@@ -188,29 +197,32 @@ export function SelectProductBox({
           <PrimaryButton onClick={openThankYou} modifiers="small">
             Continue
           </PrimaryButton>
-        </Row>
+        </InnerRow>
       </Row>
     </ProductBox>
   ) : (
     <ProductBox isSelected={isSelected} disabled={disabled}>
       <Label>
-        <div>
+        <RadioWrapper>
           <Radio
             //   ref={ref}
             name="products"
             checked={isSelected}
             onChange={handleChange}
             value={name}
+            label={name}
           />
-          <Tag>{name}</Tag>
 
-          <Price>{price}</Price>
-        </div>
-        <div>
+          <PriceTag>{price}</PriceTag>
+        </RadioWrapper>
+        <UnitWrapper>
           <Units>{units}</Units>
-        </div>
+        </UnitWrapper>
       </Label>
       <p>{description}</p>
+      <MobileUnitWrapper>
+        <Units>{units}</Units>
+      </MobileUnitWrapper>
     </ProductBox>
   );
 }
@@ -230,6 +242,10 @@ const ProductBox = styled.div`
 
   p:only-of-type {
     padding-left: 40px;
+
+    @media only screen and (max-width: 768px) {
+      padding-left: 0px;
+    }
   }
 
   &:before {
@@ -249,29 +265,49 @@ const Row = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
+const InnerRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 10px;
+    width: 100%;
+  }
 `;
 
 const Label = styled.label`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
   justify-content: space-between;
-`;
 
-const Tag = styled.span`
-  margin-left: 20px;
-  font-weight: 700;
-
-  &:hover {
-    color: ${primary[100]};
-    cursor: pointer;
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
   }
 `;
 
-const Price = styled.span`
+const RadioWrapper = styled.div`
+  display: inline-flex;
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
+`;
+
+const PriceTag = styled.span`
+  display: contents;
   color: ${primary[100]};
   font-size: ${typeScale.copyrightText};
   margin: 0 20px;
+  @media only screen and (max-width: 768px) {
+    display: block;
+    margin: 0 40px;
+  }
 `;
 
 const Units = styled.span`
@@ -299,4 +335,17 @@ const InputWrapper = styled.div`
   border-radius: 30px;
   padding: 10px 15px;
   margin-right: 10px;
+`;
+
+const UnitWrapper = styled.div`
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MobileUnitWrapper = styled.div`
+  display: none;
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
 `;

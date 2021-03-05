@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { hideVisually } from "polished";
 import { primary } from "../utils";
 
-export default function Radio({ checked, id, ...props }) {
+export default function Radio({ label, checked, id, ...props }) {
   return (
     <RadioContainer>
       <HiddenRadio id={id} checked={checked} {...props} />
@@ -11,6 +11,7 @@ export default function Radio({ checked, id, ...props }) {
           <circle cx="12" cy="12" r="8" />
         </Icon>
       </StyledRadio>
+      <Label>{label}</Label>
     </RadioContainer>
   );
 }
@@ -37,6 +38,16 @@ const StyledRadio = styled.div`
 `;
 
 const RadioContainer = styled.div`
-  display: inline-block;
+  display: inline-flex;
   vertical-align: text-top;
+`;
+
+const Label = styled.span`
+  margin: 0 15px;
+  font-weight: 700;
+
+  &:hover {
+    color: ${primary[100]};
+    cursor: pointer;
+  }
 `;

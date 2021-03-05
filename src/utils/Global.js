@@ -46,6 +46,14 @@ h2 {
   }
 }
 
+h3 {
+  font-size: ${typeScale.header3};
+  @media only screen and (max-width: 768px) {
+    font-size: ${typeScale.header4};
+    margin-block-start: 0.25em;
+    margin-block-end: 0.25em;
+  }
+}
 
 ul, li {
   list-style-type: none;
@@ -61,6 +69,14 @@ a:visited {
   text-decoration: inherit;
   color: inherit;
   cursor: auto;
+}
+
+p {
+  font-size: ${typeScale.paragraph};
+  @media only screen and (max-width: 768px) {
+    font-size: ${typeScale.copyrightText};
+    
+  }
 }
 
 `;

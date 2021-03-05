@@ -59,6 +59,11 @@ const Container = styled.div`
   padding: 20px 40px;
   overflow: scroll;
   text-align: center;
+
+  @media only screen and (max-width: 768px) {
+    padding: 20px;
+    width: 300px;
+  }
 `;
 
 const ModalOverlay = styled.div`

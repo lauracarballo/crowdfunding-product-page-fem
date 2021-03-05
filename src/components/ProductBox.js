@@ -18,10 +18,10 @@ export default function ProductBox({
       </Row>
       <p>{description}</p>
       <Row>
-        <div>
+        <UnitsWrapper>
           <Units>{units}</Units>
           <span>left</span>
-        </div>
+        </UnitsWrapper>
         <PrimaryButton onClick={openModal} disabled={disabled}>
           {disabled ? "Out of Stock" : "Select Reward"}
         </PrimaryButton>
@@ -57,11 +57,23 @@ const Row = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: start;
+    justify-content: left;
+  }
 `;
 
 const Price = styled.span`
   color: ${primary[100]};
   font-size: ${typeScale.copyrightText};
+`;
+
+const UnitsWrapper = styled.div`
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const Units = styled.span`

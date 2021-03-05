@@ -18,11 +18,11 @@ export default function Nav() {
         </svg>
 
         <NavLinks links={links} />
+        <MobileMenu>
+          <Burger open={open} setOpen={setOpen} />
+          <MenuBar open={open} setOpen={setOpen} />
+        </MobileMenu>
       </NavWrapper>
-      <MobileMenu>
-        <Burger open={open} setOpen={setOpen} />
-        <MenuBar open={open} setOpen={setOpen} />
-      </MobileMenu>
     </>
   );
 }

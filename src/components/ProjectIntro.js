@@ -1,11 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { PrimaryButton, SecondaryButton } from "./Buttons";
-import useViewport from "./useViewport";
 
 export default function Intro({ title, subtitle, openModal }) {
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const { isMobile } = useViewport();
+
   return (
     <Container>
       <Logo>
@@ -40,22 +39,8 @@ export default function Intro({ title, subtitle, openModal }) {
                   <path fill="#fff" d="M23 19v18l5-5.058L33 37V19z" />
                 </g>
               </svg>
-              <Bookmark>Bookmarked</Bookmark>
+              <Bookmark isBookmarked={isBookmarked}>Bookmarked</Bookmark>
             </Row>
-          ) : isMobile && isBookmarked ? (
-            <svg width="65" height="56" xmlns="http://www.w3.org/2000/svg">
-              <g fill="none" fill-rule="evenodd">
-                <circle fill="hsl(176, 50%, 47%)" cx="28" cy="28" r="28" />
-                <path fill="#fff" d="M23 19v18l5-5.058L33 37V19z" />
-              </g>
-            </svg>
-          ) : isMobile ? (
-            <svg width="65" height="56" xmlns="http://www.w3.org/2000/svg">
-              <g fill="none" fill-rule="evenodd">
-                <circle fill="#2F2F2F" cx="28" cy="28" r="28" />
-                <path fill="#B1B1B1" d="M23 19v18l5-5.058L33 37V19z" />
-              </g>
-            </svg>
           ) : (
             <Row>
               <svg width="65" height="56" xmlns="http://www.w3.org/2000/svg">
@@ -64,7 +49,7 @@ export default function Intro({ title, subtitle, openModal }) {
                   <path fill="#B1B1B1" d="M23 19v18l5-5.058L33 37V19z" />
                 </g>
               </svg>
-              <span>Bookmark</span>
+              <Bookmark>Bookmark</Bookmark>
             </Row>
           )}
         </SecondaryButton>
@@ -84,7 +69,7 @@ const Container = styled.div`
   padding: 44px;
 
   @media only screen and (max-width: 768px) {
-    width: 380px;
+    width: 350px;
   }
 `;
 
@@ -94,7 +79,12 @@ const Row = styled.div`
 `;
 
 const Bookmark = styled.div`
-  color: ${(props) => props.theme.primaryHoverColor};
+  color: ${(props) =>
+    props.isBookmarked ? `${props.theme.primaryHoverColor}` : "#000"};
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Logo = styled.div`

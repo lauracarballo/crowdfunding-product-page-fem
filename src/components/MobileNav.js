@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { typeScale } from "../utils";
 
 export default function Burger({ open, setOpen }) {
   return (
@@ -11,9 +12,7 @@ export default function Burger({ open, setOpen }) {
 }
 
 const MobileButton = styled.button`
-  position: fixed;
-  top: 3%;
-  right: 2rem;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -58,42 +57,49 @@ export function MenuBar({ open, setOpen }) {
   return (
     <Menu open={open}>
       <MobileLink onClick={() => setOpen(!open)} href="/">
-        Home
+        About
       </MobileLink>
+      <Divider />
       <MobileLink onClick={() => setOpen(!open)} href="/">
-        Projects
+        Discover
       </MobileLink>
+      <Divider />
       <MobileLink onClick={() => setOpen(!open)} href="/">
-        Contact
+        Get Started
       </MobileLink>
     </Menu>
   );
 }
 
 const Menu = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-  width: 100%;
-  text-align: center;
+  height: fit-content;
+  width: 90%;
+  text-align: left;
   padding: 2rem;
-  position: fixed;
-  background-color: #810000;
-  top: 0;
-  right: 0;
-  z-index: 9;
+  position: absolute;
+  background-color: #fff;
+  border-radius: 10px;
+  top: 60px;
+  right: 15px;
+  z-index: 10;
   transition: transform 0.3s ease-in-out;
   transform: ${(props) => (props.open ? "translateX(0%)" : "translateX(100%)")};
 `;
 
 const MobileLink = styled.a`
-  font-size: 2rem;
-  text-transform: uppercase;
-  padding: 2rem 0;
-  font-weight: bold;
-  letter-spacing: 0.5rem;
+  display: block;
+  font-weight: 700;
+  font-size: ${typeScale.header1};
   text-decoration: none;
   transition: color 0.3s linear;
   color: #fff;
+`;
+
+const Divider = styled.hr`
+  width: 123%;
+  margin-left: -31px;
+  background-color: hsl(0deg 6% 92% / 85%);
+  color: hsl(0deg 6% 92% / 85%);
+  height: 1px;
+  border: 1px;
 `;

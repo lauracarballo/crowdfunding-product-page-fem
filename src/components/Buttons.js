@@ -66,4 +66,18 @@ export const SecondaryButton = styled(Button)`
     background-color: inherit;
     color: inherit;
   }
+
+  @media only screen and (max-width: 768px) {
+    background-color: transparent;
+    color: none;
+    padding: 0px 0px 0px 0px;
+    border: none;
+    color: none;
+    min-width: fit-content;
+
+    &:active {
+      border-color: transparent;
+      background-color: transparent;
+    }
+  }
 `;

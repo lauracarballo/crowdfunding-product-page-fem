@@ -41,7 +41,7 @@ const Container = styled.div`
   padding: 44px;
 
   @media only screen and (max-width: 768px) {
-    width: 380px;
+    width: 350px;
   }
 `;
 
@@ -49,6 +49,12 @@ const Row = styled.div`
   display: flex;
   flex-direction: row;
   width: 460px;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
 `;
 
 const Column = styled.div`
@@ -70,6 +76,12 @@ const Divider = styled.hr`
   height: 1px;
   border: 1px;
   top: 30px;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column;
+    -webkit-transform: none;
+    top: 5px;
+  }
 `;
 
 const Slider = styled.div`
