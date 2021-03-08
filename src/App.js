@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { ThemeProvider } from "styled-components";
 import Modal from "./components/Modal";
 import Nav from "./components/Nav";
@@ -11,31 +12,74 @@ import { defaultTheme } from "./utils/themes";
 import useViewport from "./components/useViewport";
 
 export default function App() {
-  const { isOpen, setIsOpen, toggle } = useModal();
+  const [project, setProject] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const { isOpen, toggle } = useModal();
   const [isCompleted, setIsCompleted] = useState(false);
   const { isMobile } = useViewport();
 
+  useEffect(() => {
+    axios.get("http://localhost:5000/projects").then((res) => {
+      setProject(res.data);
+      setLoading(false);
+    });
+  }, []);
+
+  // function updateCount(value) {
+  //   const res = axios
+  //     .post("/projects", {
+  //       pledge: value,
+  //     })
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+
+  //   if (res.created) {
+  //     setIsCompleted(true);
+  //     setIsOpen(false);
+  //   }
+  // }
+
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Hero isMobile={isMobile}>
-        <Nav />
-      </Hero>
-      <Project openModal={toggle} />
-      <Modal
-        isOpen={isOpen}
-        closeModal={toggle}
-        openThankYou={() => {
-          setIsCompleted(true);
-          setIsOpen(false);
-        }}
-      />
+      {loading ? (
+        <div>Loading</div>
+      ) : (
+        <>
+          <Hero isMobile={isMobile}>
+            <Nav />
+          </Hero>
+          <Project
+            title={project.title}
+            subtitle={project.subtitle}
+            openModal={toggle}
+            moneyRaised={"$" + project.currentPledge}
+            totalBackers={project.backersCount}
+            days="56"
+            products={project.products}
+          />
 
-      {isCompleted ? (
-        <ThankYouModal
-          isCompleted={isCompleted}
-          closeThankYouModal={() => setIsCompleted(false)}
-        />
-      ) : null}
+          <Modal
+            products={project.products}
+            isOpen={isOpen}
+            closeModal={toggle}
+            openThankYou={() => {
+              setIsCompleted(true);
+              toggle();
+            }}
+          />
+          {isCompleted ? (
+            <ThankYouModal
+              isCompleted={isCompleted}
+              closeThankYouModal={() => setIsCompleted(false)}
+            />
+          ) : null}
+        </>
+      )}
 
       <GlobalStyle />
     </ThemeProvider>

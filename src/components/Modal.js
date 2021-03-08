@@ -1,17 +1,17 @@
 import ReactDOM from "react-dom";
 import { FocusScope } from "@react-aria/focus";
+import { hideVisually } from "polished";
 import { useState } from "react";
 import styled from "styled-components";
 import { typeScale, primary } from "../utils";
 import Radio from "./Radio";
-import { products } from "./Products";
 import { PrimaryButton } from "./Buttons";
 
-export default function Modal({ isOpen, closeModal, openThankYou }) {
+export default function Modal({ products, isOpen, closeModal, openThankYou }) {
   return isOpen
     ? ReactDOM.createPortal(
         <aside>
-          <FocusScope contain autoFocus>
+          <FocusScope autoFocus>
             <Container
               role="dialog"
               aria-modal="true"
@@ -44,6 +44,7 @@ export default function Modal({ isOpen, closeModal, openThankYou }) {
                 name="Pledge with no reward"
                 description="Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email."
               />
+
               {products.map((product) => {
                 return (
                   <SelectProductBox
@@ -116,19 +117,6 @@ const CloseModalButton = styled.button`
   }
 `;
 
-// const useRadio = (name, ref) => {
-
-//     {
-//         "products": [{
-//             refRadio1: false,
-//             refRadio2: false,
-//             refRadio3: true,
-//         }]
-//     }
-
-//     return products[ref]
-// }
-
 export function SelectProductBox({
   name,
   id,
@@ -140,33 +128,19 @@ export function SelectProductBox({
   onSelect,
   openThankYou,
 }) {
-  const [pledge, setPledge] = useState();
-  const [isSelected, setIsSelected] = useState(false);
-
-  //   const ref = useRef();
-
-  //   const {isChecked, onChange} = useRadio("products", ref);
-
-  function handleChange(event) {
-    setIsSelected(true);
-  }
+  const [value, setValue] = useState();
 
   function handleInputChange(event) {
-    setPledge(event.target.value);
+    const inputValue = event.target.value;
+    setValue(inputValue);
   }
 
-  return isSelected ? (
-    <ProductBox isSelected={isSelected} disabled={disabled}>
-      <Label>
+  return (
+    <Label>
+      <HiddenRadio name="products" value={id} label={name} />
+      <ProductBox disabled={disabled}>
         <RadioWrapper>
-          <Radio
-            //   ref={ref}
-            name="products"
-            checked={isSelected}
-            onChange={onSelect}
-            value={id}
-            label={name}
-          />
+          <Radio />
 
           <PriceTag>{price}</PriceTag>
         </RadioWrapper>
@@ -174,67 +148,45 @@ export function SelectProductBox({
         <UnitWrapper>
           <Units>{units}</Units>
         </UnitWrapper>
-      </Label>
-      <p>{description}</p>
-      <MobileUnitWrapper>
-        <Units>{units}</Units>
-      </MobileUnitWrapper>
-      <hr />
-      <Row>
-        <span>Enter your pledge</span>
-        <InnerRow>
-          <InputWrapper>
-            <label htmlFor="pledge">$</label>
-            <Input
-              type="text"
-              id="pledge"
-              name="pledge"
-              onChange={handleInputChange}
-              value={pledge}
-              placeholder={defaultPledge}
-            />
-          </InputWrapper>
-          <PrimaryButton onClick={openThankYou} modifiers="small">
-            Continue
-          </PrimaryButton>
-        </InnerRow>
-      </Row>
-    </ProductBox>
-  ) : (
-    <ProductBox isSelected={isSelected} disabled={disabled}>
-      <Label>
-        <RadioWrapper>
-          <Radio
-            //   ref={ref}
-            name="products"
-            checked={isSelected}
-            onChange={handleChange}
-            value={name}
-            label={name}
-          />
 
-          <PriceTag>{price}</PriceTag>
-        </RadioWrapper>
-        <UnitWrapper>
+        <p>{description}</p>
+        <MobileUnitWrapper>
           <Units>{units}</Units>
-        </UnitWrapper>
-      </Label>
-      <p>{description}</p>
-      <MobileUnitWrapper>
-        <Units>{units}</Units>
-      </MobileUnitWrapper>
-    </ProductBox>
+        </MobileUnitWrapper>
+        <Divider />
+        <Row>
+          <span>Enter your pledge</span>
+          <InnerRow>
+            <InputWrapper>
+              <label htmlFor="pledge">$</label>
+              <Input
+                type="text"
+                id="pledge"
+                name="pledge"
+                onChange={handleInputChange}
+                value={value}
+                placeholder={defaultPledge}
+              />
+            </InputWrapper>
+            <PrimaryButton onClick={openThankYou} modifiers="small">
+              Continue
+            </PrimaryButton>
+          </InnerRow>
+        </Row>
+      </ProductBox>
+    </Label>
   );
 }
+
+const Divider = styled.hr`
+  display: none;
+`;
 
 const ProductBox = styled.div`
   position: relative;
   margin: 20px 0px;
   background-color: #fff;
-  border: ${(props) =>
-    props.isSelected
-      ? `2px solid ${primary[100]}`
-      : "1px solid hsl(0deg 6% 92% / 85%)"};
+  border: 1px solid hsl(0deg 6% 92% / 85%);
   border-radius: 10px;
   box-shadow: 15px 15px 65px #fff;
   text-align: left;
@@ -261,13 +213,30 @@ const ProductBox = styled.div`
 `;
 
 const Row = styled.div`
-  display: flex;
+  display: none;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
+  }
+`;
+
+const HiddenRadio = styled.input.attrs({ type: "radio" })`
+  ${hideVisually()}
+
+  &:checked + ${ProductBox} {
+    border: 2px solid ${primary[100]};
+    svg {
+      visibility: visible;
+    }
+    ${Divider} {
+      display: block;
+    }
+    ${Row} {
+      display: flex;
+    }
   }
 `;
 

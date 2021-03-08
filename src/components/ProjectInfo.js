@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import ProductBox from "./ProductBox";
-import { products } from "./Products";
 
-export default function Info({ openModal }) {
+export default function Info({ openModal, products }) {
+  console.log(products);
   return (
     <Container>
       <h2>About this project</h2>
