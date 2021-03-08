@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import axios from "axios";
+import useSWR, { mutate } from "swr";
 import { FocusScope } from "@react-aria/focus";
 import SelectProductBox from "./SelectionBox";
 import styled from "styled-components";
@@ -25,9 +26,8 @@ export default function Modal({ products, isOpen, closeModal }) {
         pledge: +pledge,
       })
       .then(function (response) {
-        console.log(response);
-        console.log("hello");
         closeModal();
+        mutate("http://localhost:5000/projects");
       })
       .catch(function (error) {
         console.log(error);

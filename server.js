@@ -69,8 +69,8 @@ app.post("/projects", (req, res) => {
       (product) => +product.id === +req.body.product
     );
     console.log(product.units);
-    projects[0].units = product.units - 1;
-    console.log(projects[0].units);
+    product.units = product.units - 1;
+    console.log(product.units);
 
     res.send({ created: true });
   } else {
