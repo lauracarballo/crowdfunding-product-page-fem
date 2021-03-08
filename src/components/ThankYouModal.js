@@ -3,8 +3,11 @@ import { FocusScope } from "@react-aria/focus";
 import styled from "styled-components";
 import { PrimaryButton } from "./Buttons";
 
-export default function ThankYouModal({ isCompleted, closeThankYouModal }) {
-  return isCompleted
+export default function ThankYouModal({
+  isPledgeReceived,
+  closeThankYouModal,
+}) {
+  return isPledgeReceived
     ? ReactDOM.createPortal(
         <FocusScope contain autoFocus>
           <aside>

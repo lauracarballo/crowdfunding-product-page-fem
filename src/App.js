@@ -16,7 +16,7 @@ export default function App() {
   const [loading, setLoading] = useState(true);
 
   const { isOpen, toggle } = useModal();
-  const [isCompleted, setIsCompleted] = useState(false);
+  const [isPledgeReceived, setIsPledgeReceived] = useState(false);
   const { isMobile } = useViewport();
 
   useEffect(() => {
@@ -25,24 +25,6 @@ export default function App() {
       setLoading(false);
     });
   }, []);
-
-  // function updateCount(value) {
-  //   const res = axios
-  //     .post("/projects", {
-  //       pledge: value,
-  //     })
-  //     .then(function (response) {
-  //       console.log(response);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-
-  //   if (res.created) {
-  //     setIsCompleted(true);
-  //     setIsOpen(false);
-  //   }
-  // }
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -67,15 +49,12 @@ export default function App() {
             products={project.products}
             isOpen={isOpen}
             closeModal={toggle}
-            openThankYou={() => {
-              setIsCompleted(true);
-              toggle();
-            }}
+            setIsPledgeReceived={() => setIsPledgeReceived(true)}
           />
-          {isCompleted ? (
+          {isPledgeReceived ? (
             <ThankYouModal
-              isCompleted={isCompleted}
-              closeThankYouModal={() => setIsCompleted(false)}
+              isPledgeReceived={isPledgeReceived}
+              closeThankYouModal={() => setIsPledgeReceived(false)}
             />
           ) : null}
         </>

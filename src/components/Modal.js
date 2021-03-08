@@ -1,13 +1,39 @@
 import ReactDOM from "react-dom";
+import axios from "axios";
 import { FocusScope } from "@react-aria/focus";
-import { hideVisually } from "polished";
-import { useState } from "react";
+import SelectProductBox from "./SelectionBox";
 import styled from "styled-components";
-import { typeScale, primary } from "../utils";
-import Radio from "./Radio";
-import { PrimaryButton } from "./Buttons";
 
-export default function Modal({ products, isOpen, closeModal, openThankYou }) {
+export default function Modal({ products, isOpen, closeModal }) {
+  function updateCount(event) {
+    event.preventDefault();
+
+    const checkedRadio = Array.from(event.target.products).find(
+      (element) => element.checked
+    );
+
+    if (!checkedRadio) {
+      return;
+    }
+
+    const productId = checkedRadio.value;
+    const pledge = checkedRadio.nextElementSibling.querySelector("input").value;
+
+    axios
+      .post("http://localhost:5000/projects", {
+        product: +productId,
+        pledge: +pledge,
+      })
+      .then(function (response) {
+        console.log(response);
+        console.log("hello");
+        closeModal();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   return isOpen
     ? ReactDOM.createPortal(
         <aside>
@@ -44,20 +70,22 @@ export default function Modal({ products, isOpen, closeModal, openThankYou }) {
                 name="Pledge with no reward"
                 description="Choose to support us without a reward if you simply believe in our project. As a backer, you will be signed up to receive product updates via email."
               />
-
-              {products.map((product) => {
-                return (
-                  <SelectProductBox
-                    key={product.id}
-                    name={product.name}
-                    description={product.description}
-                    price={product.price}
-                    units={product.units + " left"}
-                    defaultPledge={product.minPledge}
-                    openThankYou={openThankYou}
-                  />
-                );
-              })}
+              <form onSubmit={updateCount}>
+                {products.map((product, index) => {
+                  return (
+                    <SelectProductBox
+                      key={index}
+                      id={product.id}
+                      name={product.name}
+                      description={product.description}
+                      price={product.price}
+                      units={product.units + " left"}
+                      defaultPledge={product.minPledge}
+                      updateCount={updateCount}
+                    />
+                  );
+                })}
+              </form>
             </Container>
             <ModalOverlay />
           </FocusScope>
@@ -114,207 +142,5 @@ const CloseModalButton = styled.button`
     outline: 3px solid ${(props) => props.theme.primaryHoverColor};
     outline-offset: 2px;
     border: 2px solid transparent;
-  }
-`;
-
-export function SelectProductBox({
-  name,
-  id,
-  description,
-  disabled,
-  price,
-  units,
-  defaultPledge,
-  onSelect,
-  openThankYou,
-}) {
-  const [value, setValue] = useState();
-
-  function handleInputChange(event) {
-    const inputValue = event.target.value;
-    setValue(inputValue);
-  }
-
-  return (
-    <Label>
-      <HiddenRadio name="products" value={id} label={name} />
-      <ProductBox disabled={disabled}>
-        <RadioWrapper>
-          <Radio />
-
-          <PriceTag>{price}</PriceTag>
-        </RadioWrapper>
-
-        <UnitWrapper>
-          <Units>{units}</Units>
-        </UnitWrapper>
-
-        <p>{description}</p>
-        <MobileUnitWrapper>
-          <Units>{units}</Units>
-        </MobileUnitWrapper>
-        <Divider />
-        <Row>
-          <span>Enter your pledge</span>
-          <InnerRow>
-            <InputWrapper>
-              <label htmlFor="pledge">$</label>
-              <Input
-                type="text"
-                id="pledge"
-                name="pledge"
-                onChange={handleInputChange}
-                value={value}
-                placeholder={defaultPledge}
-              />
-            </InputWrapper>
-            <PrimaryButton onClick={openThankYou} modifiers="small">
-              Continue
-            </PrimaryButton>
-          </InnerRow>
-        </Row>
-      </ProductBox>
-    </Label>
-  );
-}
-
-const Divider = styled.hr`
-  display: none;
-`;
-
-const ProductBox = styled.div`
-  position: relative;
-  margin: 20px 0px;
-  background-color: #fff;
-  border: 1px solid hsl(0deg 6% 92% / 85%);
-  border-radius: 10px;
-  box-shadow: 15px 15px 65px #fff;
-  text-align: left;
-  padding: 20px;
-
-  p:only-of-type {
-    padding-left: 40px;
-
-    @media only screen and (max-width: 768px) {
-      padding-left: 0px;
-    }
-  }
-
-  &:before {
-    position: absolute;
-    content: ${(props) => (props.disabled ? '""' : "none")};
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    top: 0px;
-    left: 0px;
-    background-color: #ffffff99;
-  }
-`;
-
-const Row = styled.div`
-  display: none;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const HiddenRadio = styled.input.attrs({ type: "radio" })`
-  ${hideVisually()}
-
-  &:checked + ${ProductBox} {
-    border: 2px solid ${primary[100]};
-    svg {
-      visibility: visible;
-    }
-    ${Divider} {
-      display: block;
-    }
-    ${Row} {
-      display: flex;
-    }
-  }
-`;
-
-const InnerRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  @media only screen and (max-width: 768px) {
-    margin-top: 10px;
-    width: 100%;
-  }
-`;
-
-const Label = styled.label`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
-
-const RadioWrapper = styled.div`
-  display: inline-flex;
-  @media only screen and (max-width: 768px) {
-    display: block;
-  }
-`;
-
-const PriceTag = styled.span`
-  display: contents;
-  color: ${primary[100]};
-  font-size: ${typeScale.copyrightText};
-  margin: 0 20px;
-  @media only screen and (max-width: 768px) {
-    display: block;
-    margin: 0 40px;
-  }
-`;
-
-const Units = styled.span`
-  font-size: 16px;
-  font-weight: 700;
-  margin-right: 10px;
-`;
-
-const Input = styled.input`
-  width: 40px;
-  border: none;
-  outline: none;
-  border-radius: 20px;
-  margin: 0px 10px;
-
-  &:focus {
-    outline: 3px solid ${(props) => props.theme.primaryHoverColor};
-    outline-offset: 2px;
-    border: 2px solid transparent;
-  }
-`;
-
-const InputWrapper = styled.div`
-  border: 2px solid hsl(0deg 6% 92% / 85%);
-  border-radius: 30px;
-  padding: 10px 15px;
-  margin-right: 10px;
-`;
-
-const UnitWrapper = styled.div`
-  @media only screen and (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const MobileUnitWrapper = styled.div`
-  display: none;
-  @media only screen and (max-width: 768px) {
-    display: block;
   }
 `;

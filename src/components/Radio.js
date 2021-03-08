@@ -32,7 +32,7 @@ const StyledRadio = styled.div`
 
 const RadioContainer = styled.div`
   display: inline-flex;
-  vertical-align: text-top;
+  vertical-align: top;
 `;
 
 const Label = styled.span`

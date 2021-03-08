@@ -14,7 +14,7 @@ let projects = [
       "The Mastercraft Bamboo Monitor Riser is a sturdy and stylish platform that elevates your screen to a more comfortable viewing height. Placing your monitor at eye level has the potential to improve your posture and make you more comfortable while at work, helping you stay focused on the task at hand. Featuring artisan craftsmanship, the simplicity of design creates extra desk space below your computer to allow notepads, pens, and USB sticks to be stored under the stand.",
     products: [
       {
-        id: 1,
+        id: 0,
         name: "Bamboo Stand",
         price: "Pledge $25 or more",
         minPledge: 25,
@@ -23,7 +23,7 @@ let projects = [
         units: 101,
       },
       {
-        id: 2,
+        id: 1,
         name: "Black Edition Stand",
         price: "Pledge $75 or more",
         minPledge: 75,
@@ -32,7 +32,7 @@ let projects = [
         units: 64,
       },
       {
-        id: 3,
+        id: 2,
         name: "Mahogany Special Edition ",
         price: "Pledge $200 or more",
         minPledge: 200,
@@ -65,6 +65,13 @@ app.post("/projects", (req, res) => {
   if (req.body.pledge > 0) {
     ++projects[0].backersCount;
     projects[0].currentPledge = projects[0].currentPledge + req.body.pledge;
+    const product = projects[0].products.find(
+      (product) => +product.id === +req.body.product
+    );
+    console.log(product.units);
+    projects[0].units = product.units - 1;
+    console.log(projects[0].units);
+
     res.send({ created: true });
   } else {
     res.status(400).send({ created: false });
