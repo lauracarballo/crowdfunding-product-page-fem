@@ -11,6 +11,7 @@ export default function Project({
   moneyRaised,
   totalBackers,
   days,
+  targetPledge,
 }) {
   return (
     <ProjectWrapper>
@@ -19,6 +20,7 @@ export default function Project({
         moneyRaised={moneyRaised}
         totalBackers={totalBackers}
         days={days}
+        targetPledge={targetPledge}
       />
       <Info products={products} openModal={openModal} />
     </ProjectWrapper>

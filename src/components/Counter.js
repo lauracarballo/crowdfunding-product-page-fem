@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import { primary } from "../utils";
 
-export default function Counter({ moneyRaised, totalBackers, days }) {
+export default function Counter({
+  moneyRaised,
+  totalBackers,
+  days,
+  targetPledge,
+}) {
   return (
     <Container>
       <Row>
         <Column>
           <Number>{moneyRaised}</Number>
-          <span>of $100,000 backed</span>
+          <span>of {targetPledge} backed</span>
         </Column>
 
         <Divider />
@@ -95,7 +100,7 @@ const Slider = styled.div`
 
   &:before {
     content: "";
-    width: 70%;
+    width: ${(props) => props.state.getThumbPercent(props.index) * 100}%;
     height: 10px;
     border-radius: 10px;
     background-color: ${primary[100]};

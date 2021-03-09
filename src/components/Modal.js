@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import axios from "axios";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 import { FocusScope } from "@react-aria/focus";
 import SelectProductBox from "./SelectionBox";
 import styled from "styled-components";

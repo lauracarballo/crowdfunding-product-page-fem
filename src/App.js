@@ -11,6 +11,7 @@ import { GlobalStyle } from "./utils/Global";
 import { defaultTheme } from "./utils/themes";
 import useViewport from "./components/useViewport";
 import useSWR from "swr";
+import getDaysleft from "./utils/getDaysLeft";
 
 const fetcher = (url) => axios.get(url).then((res) => res.data);
 
@@ -20,6 +21,7 @@ export default function App() {
   const { isOpen, toggle } = useModal();
   const [isPledgeReceived, setIsPledgeReceived] = useState(false);
   const { isMobile } = useViewport();
+  const daysLeft = getDaysleft(project.expires);
 
   if (!project) return <div>Loading</div>;
 
@@ -34,8 +36,9 @@ export default function App() {
         openModal={toggle}
         moneyRaised={"$" + project.currentPledge}
         totalBackers={project.backersCount}
-        days="56"
+        days={daysLeft}
         products={project.products}
+        targetPledge={project.targetPledge}
       />
 
       <Modal
