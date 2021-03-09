@@ -79,7 +79,7 @@ export default function Modal({ products, isOpen, closeModal }) {
                       name={product.name}
                       description={product.description}
                       price={product.price}
-                      units={product.units + " left"}
+                      units={product.units}
                       defaultPledge={product.minPledge}
                       updateCount={updateCount}
                     />

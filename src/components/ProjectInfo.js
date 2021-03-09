@@ -2,7 +2,6 @@ import styled from "styled-components";
 import ProductBox from "./ProductBox";
 
 export default function Info({ openModal, products }) {
-  console.log(products);
   return (
     <Container>
       <h2>About this project</h2>

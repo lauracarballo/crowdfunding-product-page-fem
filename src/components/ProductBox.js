@@ -7,9 +7,10 @@ export default function ProductBox({
   price,
   description,
   units,
-  disabled,
   openModal,
 }) {
+  const disabled = units === 0;
+
   return (
     <Container disabled={disabled}>
       <Row>

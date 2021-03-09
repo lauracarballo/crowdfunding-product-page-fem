@@ -9,15 +9,17 @@ export default function SelectProductBox({
   name,
   id,
   description,
-  disabled,
   price,
   units,
   defaultPledge,
 }) {
   const [value, setValue] = useState("");
+
+  const disabled = units === 0;
+
   return (
     <Label>
-      <HiddenRadio name="products" id={id} value={id} />
+      <HiddenRadio name="products" id={id} value={id} disabled={disabled} />
       <ProductBox disabled={disabled}>
         <RadioWrapper>
           <div>
@@ -27,13 +29,13 @@ export default function SelectProductBox({
           </div>
 
           <UnitWrapper>
-            <Units>{units}</Units>
+            <Units>{units} left</Units>
           </UnitWrapper>
         </RadioWrapper>
 
         <p>{description}</p>
         <MobileUnitWrapper>
-          <Units>{units}</Units>
+          <Units>{units} left</Units>
         </MobileUnitWrapper>
         <Divider />
         <Row>
@@ -73,14 +75,6 @@ const ProductBox = styled.div`
   text-align: left;
   padding: 20px;
 
-  p:only-of-type {
-    padding-left: 40px;
-
-    @media only screen and (max-width: 768px) {
-      padding-left: 0px;
-    }
-  }
-
   &:before {
     position: absolute;
     content: ${(props) => (props.disabled ? '""' : "none")};
@@ -90,6 +84,14 @@ const ProductBox = styled.div`
     top: 0px;
     left: 0px;
     background-color: #ffffff99;
+  }
+
+  p:only-of-type {
+    padding-left: 40px;
+
+    @media only screen and (max-width: 768px) {
+      padding-left: 0px;
+    }
   }
 `;
 
