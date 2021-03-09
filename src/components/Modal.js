@@ -5,7 +5,12 @@ import { FocusScope } from "@react-aria/focus";
 import SelectProductBox from "./SelectionBox";
 import styled from "styled-components";
 
-export default function Modal({ products, isOpen, closeModal }) {
+export default function Modal({
+  products,
+  isOpen,
+  closeModal,
+  openThankYouModal,
+}) {
   function updateCount(event) {
     event.preventDefault();
 
@@ -17,21 +22,31 @@ export default function Modal({ products, isOpen, closeModal }) {
       return;
     }
 
+    console.log(checkedRadio);
     const productId = checkedRadio.value;
+    const productMinPledge = checkedRadio.id;
     const pledge = checkedRadio.nextElementSibling.querySelector("input").value;
 
-    axios
-      .post("http://localhost:5000/projects", {
-        product: +productId,
-        pledge: +pledge,
-      })
-      .then(function (response) {
-        closeModal();
-        mutate("http://localhost:5000/projects");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    if (pledge >= productMinPledge) {
+      axios
+        .post("http://localhost:5000/projects", {
+          product: +productId,
+          pledge: +pledge,
+        })
+        .then(function (response) {
+          closeModal();
+          openThankYouModal();
+          mutate("http://localhost:5000/projects");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    } else {
+      alert(
+        "To support this product the pledge should be minimum $" +
+          productMinPledge
+      );
+    }
   }
 
   return isOpen

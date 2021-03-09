@@ -46,7 +46,7 @@ export default function App() {
         products={project.products}
         isOpen={isOpen}
         closeModal={toggle}
-        setIsPledgeReceived={() => setIsPledgeReceived(true)}
+        openThankYouModal={() => setIsPledgeReceived(true)}
       />
       {isPledgeReceived ? (
         <ThankYouModal

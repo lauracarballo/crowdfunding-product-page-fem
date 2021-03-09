@@ -19,7 +19,12 @@ export default function SelectProductBox({
 
   return (
     <Label>
-      <HiddenRadio name="products" id={id} value={id} disabled={disabled} />
+      <HiddenRadio
+        name="products"
+        id={defaultPledge}
+        value={id}
+        disabled={disabled}
+      />
       <ProductBox disabled={disabled}>
         <RadioWrapper>
           <div>
