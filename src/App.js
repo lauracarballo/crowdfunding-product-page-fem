@@ -21,9 +21,10 @@ export default function App() {
   const { isOpen, toggle } = useModal();
   const [isPledgeReceived, setIsPledgeReceived] = useState(false);
   const { isMobile } = useViewport();
-  const daysLeft = getDaysleft(project.expires);
 
   if (!project) return <div>Loading</div>;
+
+  const daysLeft = getDaysleft(project.expires);
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -34,7 +35,7 @@ export default function App() {
         title={project.title}
         subtitle={project.subtitle}
         openModal={toggle}
-        moneyRaised={"$" + project.currentPledge}
+        moneyRaised={project.currentPledge}
         totalBackers={project.backersCount}
         days={daysLeft}
         products={project.products}

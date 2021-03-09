@@ -7,11 +7,13 @@ export default function Counter({
   days,
   targetPledge,
 }) {
+  const sliderWidth = Math.floor((moneyRaised * 100) / targetPledge);
+
   return (
     <Container>
       <Row>
         <Column>
-          <Number>{moneyRaised}</Number>
+          <Number>${moneyRaised}</Number>
           <span>of {targetPledge} backed</span>
         </Column>
 
@@ -30,7 +32,7 @@ export default function Counter({
         </Column>
       </Row>
 
-      <Slider />
+      <Slider sliderWidth={sliderWidth} />
     </Container>
   );
 }
@@ -100,10 +102,12 @@ const Slider = styled.div`
 
   &:before {
     content: "";
-    width: ${(props) => props.state.getThumbPercent(props.index) * 100}%;
+    width: ${(props) => props.sliderWidth && `${props.sliderWidth + "%"}`};
     height: 10px;
     border-radius: 10px;
     background-color: ${primary[100]};
     position: absolute;
   }
 `;
+
+// ${(props) => props.state.getThumbPercent(props.index) * 100}%

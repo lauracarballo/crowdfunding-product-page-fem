@@ -3,7 +3,7 @@ export default function getDaysleft(expires) {
 
   const getTimeOfToday = today.getTime();
 
-  const expireDate = new Date(String(expires));
+  const expireDate = new Date(expires);
 
   const getTimeOfExpire = expireDate.getTime();
 
