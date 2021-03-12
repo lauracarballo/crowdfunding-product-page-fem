@@ -2,6 +2,8 @@
 
 I built this crowdfunding product page following the Frontend Mentor design and styling guidances.
 
+![Crowdfunding-product-page](./public/images/crowdfunding-product-page-screenshot.png)
+
 ## The challenge
 
 The challenge is to build this crowdfunding product page and get it looking as close to the [design](https://www.frontendmentor.io/challenges/crowdfunding-product-page-7uvcZe7ZR) as possible.
